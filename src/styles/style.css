@@ -36,6 +36,16 @@ body {
   background: darkred;
   border-radius: 5px;
   margin-bottom: 6.4px;
+  z-index: 3;
+}
+
+.burger-menu_content {
+  position: fixed;
+  top: 0;
+  width: 30%;
+  height: 100%;
+  background-color: cadetblue;
+  z-index: 2;
 }
 
 .main {
@@ -46,14 +56,12 @@ body {
 }
 
 .card-container {
-    width: 268px;
-    height: 290px;
-    margin-bottom: 30px;
-    background-color: brown;
+  width: 268px;
+  height: 290px;
+  margin-bottom: 30px;
+  background-color: brown;
 }
 
 .footer {
-    height: 80px;
+  height: 80px;
 }
-
-
