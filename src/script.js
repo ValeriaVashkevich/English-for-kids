@@ -1,5 +1,8 @@
 import "./styles/style.css";
 
+const body = document.body;
+body.className = "body";
+
 const app = document.getElementById("app");
 
 const container = document.createElement("div");
@@ -24,13 +27,10 @@ container.append(footer);
 const burgerMenu = document.createElement("div");
 burgerMenu.className = "burger-menu";
 
-header.append(burgerMenu);
+const lineBurger = document.createElement("span");
 
-for (let i = 0; i < 3; i++) {
-  const lineBurger = document.createElement("div");
-  lineBurger.className = "line_burger-menu";
-  burgerMenu.append(lineBurger);
-}
+header.append(burgerMenu);
+burgerMenu.append(lineBurger);
 
 //Burger-menu content:
 
@@ -51,14 +51,22 @@ burgerMenuContent.className = "burger-menu_content";
 app.append(burgerMenuContent);
 
 const burgerMenuList = document.createElement("ul");
+burgerMenuList.className = "menu-list";
 burgerMenuContent.append(burgerMenuList);
-for (let i = 0; i < 9; i++) {
+
+for (let i = 0; i < contentItems.length; i++) {
   const listItem = document.createElement("li");
   const link = document.createElement("a");
-//   link[i].textContent = contentItems[i];
+  link.className = "menu-link";
+  link.textContent = contentItems[i];
   burgerMenuList.append(listItem);
   listItem.append(link);
 }
+
+burgerMenu.onclick = () => {
+  burgerMenu.classList.toggle("active");
+  burgerMenuContent.classList.toggle("active");
+};
 
 // Cards in main:
 
