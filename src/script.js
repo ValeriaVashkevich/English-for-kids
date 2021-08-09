@@ -1,6 +1,16 @@
 import "./styles/style.css";
-import "./card";
 import cards from "./card";
+// import ico from {
+//   "./assets/card ico/action.png",
+//    "./assets/card ico/action2.png",
+//    "./assets/card ico/animals.png",
+//    "./assets/card ico/animals2.png",
+//    "./assets/card ico/emotion.png",
+//    "./assets/card ico/food.png",
+//    "./assets/card ico/holidays.png",
+//    "./assets/card ico/sports.png"
+// };
+
 
 const body = document.body;
 body.className = "body";
@@ -72,15 +82,13 @@ burgerMenu.onclick = () => {
 
 // Cards in main:
 
-// const ico = [
-// ]
-
 for (let i = 0; i < cards[0].length; i++) {
   const cardContainer = document.createElement("div");
   cardContainer.className = "card-container";
 
   const cardIco = document.createElement("div");
   cardIco.className = "card-ico";
+  // cardIco.style.backgroundImage = ico
 
   const cardDesc = document.createElement("div");
   cardDesc.className = "card-description";
