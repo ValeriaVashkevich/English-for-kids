@@ -1,4 +1,6 @@
 import "./styles/style.css";
+import "./card";
+import cards from "./card";
 
 const body = document.body;
 body.className = "body";
@@ -70,8 +72,21 @@ burgerMenu.onclick = () => {
 
 // Cards in main:
 
-for (let i = 0; i < 8; i++) {
+// const ico = [
+// ]
+
+for (let i = 0; i < cards[0].length; i++) {
   const cardContainer = document.createElement("div");
   cardContainer.className = "card-container";
+
+  const cardIco = document.createElement("div");
+  cardIco.className = "card-ico";
+
+  const cardDesc = document.createElement("div");
+  cardDesc.className = "card-description";
+  cardDesc.textContent = cards[0][i];
+
   main.append(cardContainer);
+  cardContainer.append(cardIco);
+  cardContainer.append(cardDesc);
 }
