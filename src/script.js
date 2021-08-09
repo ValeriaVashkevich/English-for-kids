@@ -1,16 +1,5 @@
 import "./styles/style.css";
-import cards from "./card";
-// import ico from {
-//   "./assets/card ico/action.png",
-//    "./assets/card ico/action2.png",
-//    "./assets/card ico/animals.png",
-//    "./assets/card ico/animals2.png",
-//    "./assets/card ico/emotion.png",
-//    "./assets/card ico/food.png",
-//    "./assets/card ico/holidays.png",
-//    "./assets/card ico/sports.png"
-// };
-
+import { mainImg, cards } from "./card";
 
 const body = document.body;
 body.className = "body";
@@ -82,19 +71,19 @@ burgerMenu.onclick = () => {
 
 // Cards in main:
 
-for (let i = 0; i < cards[0].length; i++) {
+for (let i = 0; i < mainImg.length; i++) {
   const cardContainer = document.createElement("div");
   cardContainer.className = "card-container";
 
-  const cardIco = document.createElement("div");
-  cardIco.className = "card-ico";
-  // cardIco.style.backgroundImage = ico
+  const cardMainImg = document.createElement("div");
+  cardMainImg.className = "card_main-img";
+  cardMainImg.style.backgroundImage = `url${mainImg[i].img}`;
 
   const cardDesc = document.createElement("div");
   cardDesc.className = "card-description";
-  cardDesc.textContent = cards[0][i];
+  cardDesc.textContent = mainImg[i].title;
 
   main.append(cardContainer);
-  cardContainer.append(cardIco);
+  cardContainer.append(cardMainImg);
   cardContainer.append(cardDesc);
 }
