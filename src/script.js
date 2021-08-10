@@ -39,12 +39,12 @@ const contentItems = [
   "Main Page",
   "Action (set A)",
   "Action (set B)",
-  "Something",
-  "Something",
   "Animal (set A)",
   "Animal (set B)",
-  "Clothes",
   "Emotions",
+  "Food",
+  "Holidays",
+  "Sports game",
 ];
 
 const burgerMenuContent = document.createElement("nav");
@@ -67,6 +67,7 @@ for (let i = 0; i < contentItems.length; i++) {
 burgerMenu.onclick = () => {
   burgerMenu.classList.toggle("active");
   burgerMenuContent.classList.toggle("active");
+  body.classList.toggle("lock");
 };
 
 // Cards in main:
@@ -77,7 +78,7 @@ for (let i = 0; i < mainImg.length; i++) {
 
   const cardMainImg = document.createElement("div");
   cardMainImg.className = "card_main-img";
-  cardMainImg.style.backgroundImage = `url${mainImg[i].img}`;
+  cardMainImg.style.backgroundImage = `url(${mainImg[i].img})`;
 
   const cardDesc = document.createElement("div");
   cardDesc.className = "card-description";
