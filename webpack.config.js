@@ -32,10 +32,10 @@ module.exports = {
         test: /\.(png|png|svg|gif)$/,
         use: ["file-loader"],
       },
-      {
-        test: /\.(ttf|woff|woff2|eot)$/,
-        use: ["file-loader"],
-      }
+      // {
+      //   test: /\.(ttf|woff|woff2|eot)$/,
+      //   use: ["file-loader"],
+      // }
     ],
   },
 };

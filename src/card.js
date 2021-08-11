@@ -132,6 +132,12 @@ const cards = [
         image: "img/jump.png",
         audioSrc: "audio/jump.mp3",
       },
+      {
+        word: "sleep",
+        translation: "спать",
+        image: "img/sleep.png",
+        audioSrc: "audio/sleep.mp3",
+      },
     ],
   },
 
