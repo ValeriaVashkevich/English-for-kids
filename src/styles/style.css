@@ -129,6 +129,62 @@ body.lock {
   transition: all 0.3s ease 0s;
 }
 
+.switch-container:hover {
+  cursor: pointer;
+}
+
+.switch-label {
+  display: inline-block;
+  width: 120px; /* ширина */
+  height: 40px; /* высота */
+  border-radius: 5px;
+  background: yellow; /* цвет фона */
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  position: relative;
+  transition-duration: 300ms; /* анимация */
+}
+
+.switch-label::before {
+  content: "TRAIN";
+  font-size: 22px;
+  color: rgba(0, 128, 0, 0.8);
+  top: 7px;
+  left: 7px;
+  transition-duration: 300ms;
+  position: absolute;
+  z-index: 1;
+}
+
+.switch-label::after {
+  content: "";
+  width: 36px; /* ширина кнопки */
+  height: 36px; /* высота кнопки */
+  border-radius: 5px;
+  background: #fff; /* цвет кнопки */
+  top: 2px; /* положение кнопки по вертикали относительно основы */
+  left: 80px; /* положение кнопки по горизонтали относительно основы */
+  transition-duration: 300ms; /* анимация */
+  position: absolute;
+  z-index: 1;
+}
+
+.switch-label.off {
+  background: rgba(0, 128, 0, 0.8);
+}
+
+.switch-label.off::after {
+  left: 4px;
+}
+
+.switch-label.off::before {
+  content: "PLAY";
+  color: yellow;
+  left: 60px;
+}
+
 .main {
   display: flex;
   justify-content: space-between;
@@ -140,7 +196,17 @@ body.lock {
   width: 268px;
   height: 290px;
   margin-bottom: 30px;
-  background-color: rgba(255, 255, 0, 1);
+  background-color: rgba(59, 59, 235, 0.4);
+  border: 3px solid yellow;
+}
+
+.card-container:hover {
+  cursor: pointer;
+  box-shadow: 0 2px 5px 0 black;
+}
+
+.card-container.play {
+  border: 3px solid rgba(0, 128, 0, 0.8);
 }
 
 .card_main-img {
