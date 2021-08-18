@@ -21,7 +21,7 @@ body.lock {
 }
 
 .container {
-  width: 1120px;
+  width: 84%;
   height: 100%;
   margin: 0 auto;
 }
@@ -137,7 +137,7 @@ body.lock {
   display: inline-block;
   width: 120px; /* ширина */
   height: 40px; /* высота */
-  border-radius: 5px;
+  border-radius: 8px;
   background: yellow; /* цвет фона */
   z-index: 0;
   margin: 0;
@@ -162,7 +162,7 @@ body.lock {
   content: "";
   width: 36px; /* ширина кнопки */
   height: 36px; /* высота кнопки */
-  border-radius: 5px;
+  border-radius: 8px;
   background: #fff; /* цвет кнопки */
   top: 2px; /* положение кнопки по вертикали относительно основы */
   left: 80px; /* положение кнопки по горизонтали относительно основы */
@@ -185,27 +185,31 @@ body.lock {
   left: 60px;
 }
 
-.main {
+.cards-container {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   height: auto;
+  width: 100%;
 }
 
-.card-container {
+.main-card{
   width: 268px;
   height: 290px;
   margin-bottom: 30px;
+  border-radius: 20px;
+  overflow: hidden;
   background-color: rgba(59, 59, 235, 0.4);
   border: 3px solid yellow;
+  transition-duration: 300ms; 
 }
 
-.card-container:hover {
+.main-card:hover {
   cursor: pointer;
   box-shadow: 0 2px 5px 0 black;
 }
 
-.card-container.play {
+.main-card.green {
   border: 3px solid rgba(0, 128, 0, 0.8);
 }
 
@@ -215,7 +219,41 @@ body.lock {
   background-position: top;
 }
 
-.card-description {
+.card_main-description{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20%;
+  font-size: 35px;
+  background-color: white;
+}
+
+.section-card {
+  width: 268px;
+  height: 290px;
+  margin-bottom: 30px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: rgba(59, 59, 235, 0.4);
+  border: 3px solid yellow;
+}
+
+.section-card:hover {
+  cursor: pointer;
+  box-shadow: 0 2px 5px 0 black;
+}
+
+.section-card.green {
+  border: 3px solid rgba(0, 128, 0, 0.8);
+}
+
+.card_section-img {
+  height: 80%;
+  background-size: cover;
+  background-position: top;
+}
+
+.card_section-description {
   display: flex;
   align-items: center;
   justify-content: center;

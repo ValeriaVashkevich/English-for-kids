@@ -1,5 +1,5 @@
 import "./styles/style.css";
-import { mainImg, cards } from "./card";
+import { mainCardContent, cards } from "./card";
 
 const body = document.body;
 body.className = "body";
@@ -78,97 +78,97 @@ burgerMenu.onclick = () => {
   body.classList.toggle("lock");
 };
 
+// Switch:
+
+let isItPlay = false;
+
+switchContainer.onclick = () => {
+  isItPlay = !isItPlay
+
+  const yellowMainCard = document.querySelectorAll(".main-card");
+  const yellowSectionCard = document.querySelectorAll(".section-card");
+
+  if(isItPlay) {
+    switchLabel.classList.add("off");
+    for (let i = 0; i < yellowMainCard.length; i++) {
+      yellowMainCard[i].classList.add("green");
+    }
+    for (let i = 0; i < yellowSectionCard.length; i++) {
+      yellowSectionCard[i].classList.add("green");
+    }
+  }
+
+  if(!isItPlay) {
+    switchLabel.classList.remove("off");
+    for (let i = 0; i < yellowMainCard.length; i++) {
+      yellowMainCard[i].classList.remove("green");
+    }
+    for (let i = 0; i < yellowSectionCard.length; i++) {
+      yellowSectionCard[i].classList.remove("green");
+    }
+  }
+};
+
 // Cards in main:
 
-const renderMainPage = () => {
-  for (let i = 0; i < mainImg.length; i++) {
-    const cardContainer = document.createElement("div");
-    cardContainer.className = "card-container";
+const cardsContainer = document.createElement("div");
+cardsContainer.className = "cards-container";
 
-    let cardMainImg = document.createElement("div");
-    cardMainImg.className = "card_main-img";
-    cardMainImg.style.backgroundImage = `url(${mainImg[i].img})`;
+const renderSectionPage = (section) => {
+  const oldCard = document.querySelectorAll(".main-card");
+  for (let i = 0; i < oldCard.length; i++) {
+    oldCard[i].remove();
 
-    let cardDesc = document.createElement("div");
-    cardDesc.className = "card-description";
-    cardDesc.textContent = mainImg[i].title;
+    const sectionName = cards.find((el) => el.section === section);
+    const sectionContent = sectionName.content;
 
-    main.append(cardContainer);
-    cardContainer.append(cardMainImg);
-    cardContainer.append(cardDesc);
+    const sectionCard = document.createElement("div");
+    sectionCard.className = "section-card";
 
-    switchContainer.onclick = () => {
-      let backCards = document.querySelectorAll(".card-container");
-      switchLabel.classList.toggle("off");
-      backCards.classList.toggle("play");
-    };
+    const cardSectionImg = document.createElement("div");
+    cardSectionImg.className = "card_section-img";
+    cardSectionImg.style.backgroundImage = `url(${sectionContent[i].image})`;
+
+    const cardSectionDesc = document.createElement("div");
+    cardSectionDesc.className = "card_section-description";
+    cardSectionDesc.textContent = sectionContent[i].word;
+
+    const cardSectionAudio = document.createElement("audio");
+    cardSectionAudio.src = sectionContent[i].audioSrc
+
+    sectionCard.onclick = () => {
+      cardSectionAudio.play()
+    }
+
+    cardsContainer.append(sectionCard);
+    sectionCard.append(cardSectionImg);
+    sectionCard.append(cardSectionDesc);
+    sectionCard.append(cardSectionAudio)
   }
-  
- 
+};
+
+const renderMainPage = () => {
+  for (let i = 0; i < mainCardContent.length; i++) {
+    const mainCard = document.createElement("div");
+    mainCard.className = "main-card";
+
+    mainCard.onclick = () => {
+      renderSectionPage(mainCardContent[i].title);
+    };
+
+    const cardMainImg = document.createElement("div");
+    cardMainImg.className = "card_main-img";
+    cardMainImg.style.backgroundImage = `url(${mainCardContent[i].img})`;
+
+    const cardMainDesc = document.createElement("div");
+    cardMainDesc.className = "card_main-description";
+    cardMainDesc.textContent = mainCardContent[i].title;
+
+    main.append(cardsContainer);
+    cardsContainer.append(mainCard);
+    mainCard.append(cardMainImg);
+    mainCard.append(cardMainDesc);
+  }
 };
 
 renderMainPage();
-
-let cardsSection = cards.find((el) => el.section);
-let cardsTitle = mainImg.find((el) => el.title);
-
-const renderSectionPage = () => {
-  const cardsSectionImg = document.querySelectorAll(".card_main-img");
-  const cardDescSection = document.querySelectorAll(".card-description");
-  for (let i = 0; i < cards.length; i++) {
-    cardsSectionImg[i].style.backgroundImage = `url(${cards[i].content.image})`;
-    cardDescSection[i].textContent = cards[i].content.word;
-  }
-};
-
-const cardFuck = document.querySelectorAll(".card-container");
-
-// card.onclick = () => {
-//   console.log("card");
-// };
-
-// card.onclick = () => {
-//   if (cardsSection === cardsTitle){
-//     renderSectionPage()}
-//     console.log('bbb');
-// };
-
-// cardsContainer.onclick = () => {
-//   for (let i = 0; i < cardsContainer.length; i++) {
-//     let cardsSection = cards.find((el) => el.section === mainImg[i].title);
-
-//     // console.log(cardsSection);
-
-//     cardsSectionImg.style.backgroundImage = `url(${cardsSection.content.image})`;
-//     cardDescSection.textContent = cardsSection.content.word;
-//   }
-//   renderSectionPage()
-// };
-
-// for (let i = 0; i < mainImg.length; i++) {
-//   const cardContainer = document.createElement("div");
-//   cardContainer.className = "card-container";
-
-//   let cardMainImg = document.createElement("div");
-//   cardMainImg.className = "card_main-img";
-//   cardMainImg.style.backgroundImage = `url(${mainImg[i].img})`;
-
-//   let cardDesc = document.createElement("div");
-//   cardDesc.className = "card-description";
-//   cardDesc.textContent = mainImg[i].title;
-
-//   main.append(cardContainer);
-//   cardContainer.append(cardMainImg);
-//   cardContainer.append(cardDesc);
-
-//   cardContainer.onclick = () => {
-//     const cardsSectionImg = document.querySelectorAll(".card_main-img");
-//     const cardDescSection = document.querySelectorAll(".card-description");
-//     let cardsSection = cards.find((el) => el.section === mainImg[i].title);
-
-//       console.log(cardsSection.content[i].image);
-//       cardsSectionImg.style.backgroundImage = `url(${cardsSection.content[i].image})`;
-//       cardDescSection.textContent = cardsSection.content[i].word;
-
-//   };
-// }

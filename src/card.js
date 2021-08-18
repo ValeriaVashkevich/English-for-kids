@@ -1,4 +1,4 @@
-const mainImg = [
+const mainCardContent = [
   {
     title: "Action (set A)",
     img: "img/action.png",
@@ -310,10 +310,10 @@ const cards = [
         audioSrc: "audio/burger.mp3",
       },
       {
-        word: "pumpking",
+        word: "pumpkin",
         translation: "тыква",
-        image: "img/pumpking.png",
-        audioSrc: "audio/pumpking.mp3",
+        image: "img/pumpkin.png",
+        audioSrc: "audio/pumpkin.mp3",
       },
       {
         word: "cheese",
@@ -383,14 +383,14 @@ const cards = [
       {
         word: "Mother's Day",
         translation: "День Матери",
-        image: "img/mother's_day.png",
-        audioSrc: "audio/mother's_day.mp3",
+        image: "img/mothers_day.png",
+        audioSrc: "audio/mothers_day.mp3",
       },
       {
         word: "Valentine's day",
         translation: "День святого Валентина",
-        image: "img/valentine's_day.png",
-        audioSrc: "audio/valentine's_day.mp3",
+        image: "img/valentines_day.png",
+        audioSrc: "audio/valentines_day.mp3",
       },
       {
         word: "Thanksgiving",
@@ -461,4 +461,4 @@ const cards = [
   },
 ];
 
-export { mainImg, cards };
+export { mainCardContent, cards };
