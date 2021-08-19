@@ -193,7 +193,7 @@ body.lock {
   width: 100%;
 }
 
-.main-card{
+.main-card {
   width: 268px;
   height: 290px;
   margin-bottom: 30px;
@@ -201,7 +201,7 @@ body.lock {
   overflow: hidden;
   background-color: rgba(59, 59, 235, 0.4);
   border: 3px solid yellow;
-  transition-duration: 300ms; 
+  transition-duration: 300ms;
 }
 
 .main-card:hover {
@@ -219,7 +219,7 @@ body.lock {
   background-position: top;
 }
 
-.card_main-description{
+.card_main-description {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -253,6 +253,12 @@ body.lock {
   background-position: top;
 }
 
+.card_section-img.only {
+  height: 100%;
+  background-size: cover;
+  background-position: top;
+}
+
 .card_section-description {
   display: flex;
   align-items: center;
@@ -260,6 +266,10 @@ body.lock {
   height: 20%;
   font-size: 35px;
   background-color: white;
+}
+
+.card_section-description.none {
+  display: none;
 }
 
 .footer {

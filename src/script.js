@@ -68,9 +68,23 @@ for (let i = 0; i < contentItems.length; i++) {
   const link = document.createElement("a");
   link.className = "menu-link";
   link.textContent = contentItems[i];
+
+  link.onclick = () => {
+    if (contentItems === contentItems[0]) {
+      renderMainPage();
+    }
+    renderSectionPage(contentItems[i]);
+    // for (let i = 0; i < contentItems.length; i++) {
+    //   if (contentItems === contentItems[0]) {
+    //     renderMainPage();
+    //   }
+    // }
+  };
+
   burgerMenuList.append(listItem);
   listItem.append(link);
 }
+
 
 burgerMenu.onclick = () => {
   burgerMenu.classList.toggle("active");
@@ -78,33 +92,43 @@ burgerMenu.onclick = () => {
   body.classList.toggle("lock");
 };
 
+
 // Switch:
 
 let isItPlay = false;
 
 switchContainer.onclick = () => {
-  isItPlay = !isItPlay
+  isItPlay = !isItPlay;
 
   const yellowMainCard = document.querySelectorAll(".main-card");
   const yellowSectionCard = document.querySelectorAll(".section-card");
 
-  if(isItPlay) {
+  const playCardSectionImg = document.querySelectorAll(".card_section-img");
+  const playCardSectionDesc = document.querySelectorAll(
+    ".card_section-description"
+  );
+
+  if (isItPlay) {
     switchLabel.classList.add("off");
     for (let i = 0; i < yellowMainCard.length; i++) {
       yellowMainCard[i].classList.add("green");
     }
     for (let i = 0; i < yellowSectionCard.length; i++) {
       yellowSectionCard[i].classList.add("green");
+      playCardSectionImg[i].classList.add("only");
+      playCardSectionDesc[i].classList.add("none");
     }
   }
 
-  if(!isItPlay) {
+  if (!isItPlay) {
     switchLabel.classList.remove("off");
     for (let i = 0; i < yellowMainCard.length; i++) {
       yellowMainCard[i].classList.remove("green");
     }
     for (let i = 0; i < yellowSectionCard.length; i++) {
       yellowSectionCard[i].classList.remove("green");
+      playCardSectionImg[i].classList.remove("only");
+      playCardSectionDesc[i].classList.remove("none");
     }
   }
 };
@@ -113,6 +137,8 @@ switchContainer.onclick = () => {
 
 const cardsContainer = document.createElement("div");
 cardsContainer.className = "cards-container";
+
+// Render Section Page:
 
 const renderSectionPage = (section) => {
   const oldCard = document.querySelectorAll(".main-card");
@@ -134,18 +160,45 @@ const renderSectionPage = (section) => {
     cardSectionDesc.textContent = sectionContent[i].word;
 
     const cardSectionAudio = document.createElement("audio");
-    cardSectionAudio.src = sectionContent[i].audioSrc
+    cardSectionAudio.src = sectionContent[i].audioSrc;
 
     sectionCard.onclick = () => {
-      cardSectionAudio.play()
-    }
+      cardSectionAudio.play();
+    };
 
     cardsContainer.append(sectionCard);
     sectionCard.append(cardSectionImg);
     sectionCard.append(cardSectionDesc);
-    sectionCard.append(cardSectionAudio)
+    sectionCard.append(cardSectionAudio);
   }
 };
+
+const renderPlaySectionPage = (section) => {
+  const oldCard = document.querySelectorAll(".main-card");
+  for (let i = 0; i < oldCard.length; i++) {
+    oldCard[i].remove();
+
+    const sectionName = cards.find((el) => el.section === section);
+    const sectionContent = sectionName.content;
+
+    const sectionCard = document.createElement("div");
+    sectionCard.className = "section-card";
+
+    const cardSectionImg = document.createElement("div");
+    cardSectionImg.className = "card_section-img";
+    cardSectionImg.style.backgroundImage = `url(${sectionContent[i].image})`;
+
+    const cardSectionDesc = document.createElement("div");
+    cardSectionDesc.className = "card_section-description";
+    cardSectionDesc.textContent = sectionContent[i].word;
+
+    cardsContainer.append(sectionCard);
+    sectionCard.append(cardSectionImg);
+    sectionCard.append(cardSectionDesc);
+  }
+};
+
+// Render Main Page:
 
 const renderMainPage = () => {
   for (let i = 0; i < mainCardContent.length; i++) {
@@ -153,7 +206,10 @@ const renderMainPage = () => {
     mainCard.className = "main-card";
 
     mainCard.onclick = () => {
-      renderSectionPage(mainCardContent[i].title);
+      if (!isItPlay) {
+        renderSectionPage(mainCardContent[i].title);
+      }
+      renderPlaySectionPage(mainCardContent[i].title);
     };
 
     const cardMainImg = document.createElement("div");
