@@ -30,10 +30,26 @@ burgerMenu.className = "burger-menu";
 
 const lineBurger = document.createElement("span");
 
+burgerMenu.onmouseenter = () => {
+  burgerMenu.classList.add("hover")
+}
+
+burgerMenu.onmouseleave = () => {
+  burgerMenu.classList.remove("hover")
+}
+
 const switchContainer = document.createElement("div");
 switchContainer.className = "switch-container";
 const switchLabel = document.createElement("div");
 switchLabel.className = "switch-label";
+
+switchContainer.onmouseenter = () => {
+  switchContainer.classList.add("hover")
+}
+
+switchContainer.onmouseleave = () => {
+  switchContainer.classList.remove("hover")
+}
 
 header.append(burgerMenu);
 burgerMenu.append(lineBurger);
@@ -69,29 +85,31 @@ for (let i = 0; i < contentItems.length; i++) {
   link.className = "menu-link";
   link.textContent = contentItems[i];
 
+
   link.onclick = () => {
-    if (contentItems === contentItems[0]) {
-      renderMainPage();
+    link.classList.add("active")
+
+    if (link.textContent === contentItems[0]) {
+      renderMainPageBack();
     }
-    renderSectionPage(contentItems[i]);
-    // for (let i = 0; i < contentItems.length; i++) {
-    //   if (contentItems === contentItems[0]) {
-    //     renderMainPage();
-    //   }
-    // }
+    if (link.textContent !== contentItems[0]) {
+      renderSectionPage(contentItems[i]);
+    }
+
+    burgerMenu.classList.remove("active");
+    burgerMenuContent.classList.remove("active");
+    body.classList.remove("lock");
   };
 
   burgerMenuList.append(listItem);
   listItem.append(link);
 }
 
-
 burgerMenu.onclick = () => {
   burgerMenu.classList.toggle("active");
   burgerMenuContent.classList.toggle("active");
   body.classList.toggle("lock");
 };
-
 
 // Switch:
 
@@ -101,34 +119,33 @@ switchContainer.onclick = () => {
   isItPlay = !isItPlay;
 
   const yellowMainCard = document.querySelectorAll(".main-card");
-  const yellowSectionCard = document.querySelectorAll(".section-card");
-
-  const playCardSectionImg = document.querySelectorAll(".card_section-img");
-  const playCardSectionDesc = document.querySelectorAll(
-    ".card_section-description"
+  const yellowSectionCardContainer = document.querySelectorAll(
+    ".section-card_container"
   );
+  const yellowBurgerMenu = document.querySelector(".burger-menu");
+  const greenBurgerMenuContent = document.querySelector(".burger-menu_content");
 
   if (isItPlay) {
     switchLabel.classList.add("off");
+    yellowBurgerMenu.classList.add("green")
+    greenBurgerMenuContent.classList.add("yellow")
     for (let i = 0; i < yellowMainCard.length; i++) {
       yellowMainCard[i].classList.add("green");
     }
-    for (let i = 0; i < yellowSectionCard.length; i++) {
-      yellowSectionCard[i].classList.add("green");
-      playCardSectionImg[i].classList.add("only");
-      playCardSectionDesc[i].classList.add("none");
+    for (let i = 0; i < yellowSectionCardContainer.length; i++) {
+      yellowSectionCardContainer[i].classList.add("green");
     }
   }
 
   if (!isItPlay) {
     switchLabel.classList.remove("off");
+    yellowBurgerMenu.classList.remove("green")
+    greenBurgerMenuContent.classList.remove("yellow")
     for (let i = 0; i < yellowMainCard.length; i++) {
       yellowMainCard[i].classList.remove("green");
     }
-    for (let i = 0; i < yellowSectionCard.length; i++) {
-      yellowSectionCard[i].classList.remove("green");
-      playCardSectionImg[i].classList.remove("only");
-      playCardSectionDesc[i].classList.remove("none");
+    for (let i = 0; i < yellowSectionCardContainer.length; i++) {
+      yellowSectionCardContainer[i].classList.remove("green");
     }
   }
 };
@@ -142,59 +159,138 @@ cardsContainer.className = "cards-container";
 
 const renderSectionPage = (section) => {
   const oldCard = document.querySelectorAll(".main-card");
+  const oldSectionCard = document.querySelectorAll(".section-card_container");
+
   for (let i = 0; i < oldCard.length; i++) {
     oldCard[i].remove();
 
     const sectionName = cards.find((el) => el.section === section);
     const sectionContent = sectionName.content;
 
-    const sectionCard = document.createElement("div");
-    sectionCard.className = "section-card";
+    const sectionCardContainer = document.createElement("div");
+    sectionCardContainer.className = "section-card_container";
 
-    const cardSectionImg = document.createElement("div");
-    cardSectionImg.className = "card_section-img";
-    cardSectionImg.style.backgroundImage = `url(${sectionContent[i].image})`;
+    const sectionCardFront = document.createElement("div");
+    sectionCardFront.className = "section-card_front";
+    const SectionImgFront = document.createElement("div");
+    SectionImgFront.className = "section_front-img";
+    SectionImgFront.style.backgroundImage = `url(${sectionContent[i].image})`;
+    const SectionDescFront = document.createElement("div");
+    SectionDescFront.className = "section_front-description";
+    SectionDescFront.textContent = sectionContent[i].word;
 
-    const cardSectionDesc = document.createElement("div");
-    cardSectionDesc.className = "card_section-description";
-    cardSectionDesc.textContent = sectionContent[i].word;
+    const sectionCardBack = document.createElement("div");
+    sectionCardBack.className = "section-card_back";
+    const SectionImgBack = document.createElement("div");
+    SectionImgBack.className = "section_front-img";
+    SectionImgBack.style.backgroundImage = `url(${sectionContent[i].image})`;
+    const SectionDescBack = document.createElement("div");
+    SectionDescBack.className = "section_front-description";
+    SectionDescBack.textContent = sectionContent[i].translation;
+
+    const rotate = document.createElement("div");
+    rotate.className = "rotate";
+    rotate.style.backgroundImage = "url(img/rotate.png)";
+
+    rotate.onclick = () => {
+      sectionCardFront.classList.add("rotate-front");
+      sectionCardBack.classList.add("rotate-back");
+    };
+
+    sectionCardContainer.onmouseleave = () => {
+      sectionCardFront.classList.remove("rotate-front");
+      sectionCardBack.classList.remove("rotate-back");
+    };
 
     const cardSectionAudio = document.createElement("audio");
     cardSectionAudio.src = sectionContent[i].audioSrc;
 
-    sectionCard.onclick = () => {
+    SectionImgFront.onclick = () => {
+      cardSectionAudio.play();
+    };
+    SectionDescFront.onclick = () => {
       cardSectionAudio.play();
     };
 
-    cardsContainer.append(sectionCard);
-    sectionCard.append(cardSectionImg);
-    sectionCard.append(cardSectionDesc);
-    sectionCard.append(cardSectionAudio);
-  }
-};
+    cardsContainer.append(sectionCardContainer);
 
-const renderPlaySectionPage = (section) => {
-  const oldCard = document.querySelectorAll(".main-card");
-  for (let i = 0; i < oldCard.length; i++) {
-    oldCard[i].remove();
+    sectionCardContainer.append(sectionCardFront);
+    sectionCardContainer.append(sectionCardBack);
+
+    sectionCardFront.append(SectionImgFront);
+    sectionCardFront.append(SectionDescFront);
+    sectionCardFront.append(rotate);
+
+    sectionCardBack.append(SectionImgBack);
+    sectionCardBack.append(SectionDescBack);
+
+    sectionCardContainer.append(cardSectionAudio);
+  }
+
+  for (let i = 0; i < oldSectionCard.length; i++) {
+    oldSectionCard[i].remove();
 
     const sectionName = cards.find((el) => el.section === section);
     const sectionContent = sectionName.content;
 
-    const sectionCard = document.createElement("div");
-    sectionCard.className = "section-card";
+    const sectionCardContainer = document.createElement("div");
+    sectionCardContainer.className = "section-card_container";
 
-    const cardSectionImg = document.createElement("div");
-    cardSectionImg.className = "card_section-img";
-    cardSectionImg.style.backgroundImage = `url(${sectionContent[i].image})`;
+    const sectionCardFront = document.createElement("div");
+    sectionCardFront.className = "section-card_front";
+    const SectionImgFront = document.createElement("div");
+    SectionImgFront.className = "section_front-img";
+    SectionImgFront.style.backgroundImage = `url(${sectionContent[i].image})`;
+    const SectionDescFront = document.createElement("div");
+    SectionDescFront.className = "section_front-description";
+    SectionDescFront.textContent = sectionContent[i].word;
 
-    const cardSectionDesc = document.createElement("div");
-    cardSectionDesc.className = "card_section-description";
-    cardSectionDesc.textContent = sectionContent[i].word;
+    const sectionCardBack = document.createElement("div");
+    sectionCardBack.className = "section-card_back";
+    const SectionImgBack = document.createElement("div");
+    SectionImgBack.className = "section_front-img";
+    SectionImgBack.style.backgroundImage = `url(${sectionContent[i].image})`;
+    const SectionDescBack = document.createElement("div");
+    SectionDescBack.className = "section_front-description";
+    SectionDescBack.textContent = sectionContent[i].translation;
 
-    cardsContainer.append(sectionCard);
-    sectionCard.append(cardSectionImg);
-    sectionCard.append(cardSectionDesc);
+    const rotate = document.createElement("div");
+    rotate.className = "rotate";
+    rotate.style.backgroundImage = "url(img/rotate.png)";
+
+    rotate.onclick = () => {
+      sectionCardFront.classList.add("rotate-front");
+      sectionCardBack.classList.add("rotate-back");
+    };
+
+    sectionCardContainer.onmouseleave = () => {
+      sectionCardFront.classList.remove("rotate-front");
+      sectionCardBack.classList.remove("rotate-back");
+    };
+
+    const cardSectionAudio = document.createElement("audio");
+    cardSectionAudio.src = sectionContent[i].audioSrc;
+
+    SectionImgFront.onclick = () => {
+      cardSectionAudio.play();
+    };
+    SectionDescFront.onclick = () => {
+      cardSectionAudio.play();
+    };
+
+    cardsContainer.append(sectionCardContainer);
+
+    sectionCardContainer.append(sectionCardFront);
+    sectionCardContainer.append(sectionCardBack);
+
+    sectionCardFront.append(SectionImgFront);
+    sectionCardFront.append(SectionDescFront);
+    sectionCardFront.append(rotate);
+
+    sectionCardBack.append(SectionImgBack);
+    sectionCardBack.append(SectionDescBack);
+
+    sectionCardContainer.append(cardSectionAudio);
   }
 };
 
@@ -206,10 +302,35 @@ const renderMainPage = () => {
     mainCard.className = "main-card";
 
     mainCard.onclick = () => {
-      if (!isItPlay) {
-        renderSectionPage(mainCardContent[i].title);
-      }
-      renderPlaySectionPage(mainCardContent[i].title);
+      renderSectionPage(mainCardContent[i].title);
+    };
+
+    const cardMainImg = document.createElement("div");
+    cardMainImg.className = "card_main-img";
+    cardMainImg.style.backgroundImage = `url(${mainCardContent[i].img})`;
+
+    const cardMainDesc = document.createElement("div");
+    cardMainDesc.className = "card_main-description";
+    cardMainDesc.textContent = mainCardContent[i].title;
+
+    main.append(cardsContainer);
+    cardsContainer.append(mainCard);
+    mainCard.append(cardMainImg);
+    mainCard.append(cardMainDesc);
+  }
+};
+
+const renderMainPageBack = () => {
+  const oldSectionCard = document.querySelectorAll(".section-card_container");
+
+  for (let i = 0; i < oldSectionCard.length; i++) {
+    oldSectionCard[i].remove();
+
+    const mainCard = document.createElement("div");
+    mainCard.className = "main-card";
+
+    mainCard.onclick = () => {
+      renderSectionPage(mainCardContent[i].title);
     };
 
     const cardMainImg = document.createElement("div");

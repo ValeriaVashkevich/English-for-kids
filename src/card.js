@@ -217,7 +217,7 @@ const cards = [
       },
       {
         word: "giraffe",
-        translation: "жирафа",
+        translation: "жираф",
         image: "img/giraffe.png",
         audioSrc: "audio/giraffe.mp3",
       },
@@ -358,7 +358,7 @@ const cards = [
     content: [
       {
         word: "Birthday",
-        translation: "День Зождения",
+        translation: "День Рождения",
         image: "img/birthday.png",
         audioSrc: "audio/birthday.mp3",
       },
