@@ -31,12 +31,12 @@ burgerMenu.className = "burger-menu";
 const lineBurger = document.createElement("span");
 
 burgerMenu.onmouseenter = () => {
-  burgerMenu.classList.add("hover")
-}
+  burgerMenu.classList.add("hover");
+};
 
 burgerMenu.onmouseleave = () => {
-  burgerMenu.classList.remove("hover")
-}
+  burgerMenu.classList.remove("hover");
+};
 
 const switchContainer = document.createElement("div");
 switchContainer.className = "switch-container";
@@ -44,12 +44,12 @@ const switchLabel = document.createElement("div");
 switchLabel.className = "switch-label";
 
 switchContainer.onmouseenter = () => {
-  switchContainer.classList.add("hover")
-}
+  switchContainer.classList.add("hover");
+};
 
 switchContainer.onmouseleave = () => {
-  switchContainer.classList.remove("hover")
-}
+  switchContainer.classList.remove("hover");
+};
 
 header.append(burgerMenu);
 burgerMenu.append(lineBurger);
@@ -79,15 +79,32 @@ const burgerMenuList = document.createElement("ul");
 burgerMenuList.className = "menu-list";
 burgerMenuContent.append(burgerMenuList);
 
+const defaultActiveLink = "Main Page";
+let activeLink = defaultActiveLink;
+
+const makeActiveLink = () => {
+  const linkList = document.querySelectorAll(".menu-link");
+  for (let i = 0; i < linkList.length; i++) {
+    linkList[i].classList.remove("active");
+    if (linkList[i].textContent === activeLink) {
+      linkList[i].classList.add("active");
+    }
+  }
+};
+
 for (let i = 0; i < contentItems.length; i++) {
   const listItem = document.createElement("li");
   const link = document.createElement("a");
   link.className = "menu-link";
   link.textContent = contentItems[i];
 
+  if (link.textContent === activeLink) {
+    link.classList.add("active");
+  }
 
   link.onclick = () => {
-    link.classList.add("active")
+    activeLink = link.textContent;
+    makeActiveLink();
 
     if (link.textContent === contentItems[0]) {
       renderMainPageBack();
@@ -127,8 +144,8 @@ switchContainer.onclick = () => {
 
   if (isItPlay) {
     switchLabel.classList.add("off");
-    yellowBurgerMenu.classList.add("green")
-    greenBurgerMenuContent.classList.add("yellow")
+    yellowBurgerMenu.classList.add("green");
+    greenBurgerMenuContent.classList.add("yellow");
     for (let i = 0; i < yellowMainCard.length; i++) {
       yellowMainCard[i].classList.add("green");
     }
@@ -139,8 +156,8 @@ switchContainer.onclick = () => {
 
   if (!isItPlay) {
     switchLabel.classList.remove("off");
-    yellowBurgerMenu.classList.remove("green")
-    greenBurgerMenuContent.classList.remove("yellow")
+    yellowBurgerMenu.classList.remove("green");
+    greenBurgerMenuContent.classList.remove("yellow");
     for (let i = 0; i < yellowMainCard.length; i++) {
       yellowMainCard[i].classList.remove("green");
     }
@@ -161,6 +178,11 @@ const renderSectionPage = (section) => {
   const oldCard = document.querySelectorAll(".main-card");
   const oldSectionCard = document.querySelectorAll(".section-card_container");
 
+  const playSwitchContainer = document.createElement("div");
+  playSwitchContainer.className = "play_switch-container";
+  const playSwitchLabel = document.createElement("div");
+  playSwitchLabel.className = "play_switch-label";
+
   for (let i = 0; i < oldCard.length; i++) {
     oldCard[i].remove();
 
@@ -169,6 +191,9 @@ const renderSectionPage = (section) => {
 
     const sectionCardContainer = document.createElement("div");
     sectionCardContainer.className = "section-card_container";
+    if (isItPlay) {
+      sectionCardContainer.classList.add("green");
+    }
 
     const sectionCardFront = document.createElement("div");
     sectionCardFront.className = "section-card_front";
@@ -225,6 +250,9 @@ const renderSectionPage = (section) => {
     sectionCardBack.append(SectionDescBack);
 
     sectionCardContainer.append(cardSectionAudio);
+
+    main.append(playSwitchContainer);
+    playSwitchContainer.append(playSwitchLabel);
   }
 
   for (let i = 0; i < oldSectionCard.length; i++) {
@@ -235,6 +263,9 @@ const renderSectionPage = (section) => {
 
     const sectionCardContainer = document.createElement("div");
     sectionCardContainer.className = "section-card_container";
+    if (isItPlay) {
+      sectionCardContainer.classList.add("green");
+    }
 
     const sectionCardFront = document.createElement("div");
     sectionCardFront.className = "section-card_front";
@@ -303,6 +334,8 @@ const renderMainPage = () => {
 
     mainCard.onclick = () => {
       renderSectionPage(mainCardContent[i].title);
+      activeLink = mainCardContent[i].title;
+      makeActiveLink();
     };
 
     const cardMainImg = document.createElement("div");
@@ -328,9 +361,14 @@ const renderMainPageBack = () => {
 
     const mainCard = document.createElement("div");
     mainCard.className = "main-card";
+    if (isItPlay) {
+      mainCard.classList.add("green");
+    }
 
     mainCard.onclick = () => {
       renderSectionPage(mainCardContent[i].title);
+      activeLink = mainCardContent[i].title;
+      makeActiveLink();
     };
 
     const cardMainImg = document.createElement("div");
