@@ -381,12 +381,12 @@ body.lock {
 }
 
 .play_switch-container {
-  display: flex;
+  display: none;
   justify-content: center;
 }
 
-.play_switch-container:hover {
-  cursor: pointer;
+.play_switch-container.play {
+  display: flex;
 }
 
 .play_switch-label {
@@ -403,12 +403,17 @@ body.lock {
   transition-duration: 300ms;
 }
 
+.play_switch-label.hover {
+  cursor: pointer;
+  box-shadow: 0 2px 5px 0 black;
+}
+
 .play_switch-label::before {
   content: "START";
   font-size: 35px;
   color: yellow;
   top: 10px;
-  left: 8px;
+  left: 15px;
   transition: all 0s ease 0s;
   position: absolute;
   z-index: 1;
@@ -420,12 +425,16 @@ body.lock {
   height: 50px;
   border-radius: 25px;
   background: #fff;
-  background-image: url("img/arrow.png");
+  /* background-image: url("../../pablic/img/rotate.png"); */
   top: 4px;
-  left: 132px;
+  left: 150px;
   transition-duration: 300ms;
   position: absolute;
   z-index: 1;
+}
+
+.play_switch-label.hover::after {
+  left: 165px;
 }
 
 .footer {

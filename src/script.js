@@ -59,6 +59,8 @@ switchContainer.append(switchLabel);
 
 //Burger-menu content:
 
+let isItMainPage = true;
+
 const contentItems = [
   "Main Page",
   "Action (set A)",
@@ -142,10 +144,15 @@ switchContainer.onclick = () => {
   const yellowBurgerMenu = document.querySelector(".burger-menu");
   const greenBurgerMenuContent = document.querySelector(".burger-menu_content");
 
+  const playSwitch = document.querySelector(".play_switch-container");
+
   if (isItPlay) {
     switchLabel.classList.add("off");
     yellowBurgerMenu.classList.add("green");
     greenBurgerMenuContent.classList.add("yellow");
+    if (!isItMainPage) {
+      playSwitch.classList.add("play");
+    }
     for (let i = 0; i < yellowMainCard.length; i++) {
       yellowMainCard[i].classList.add("green");
     }
@@ -158,6 +165,7 @@ switchContainer.onclick = () => {
     switchLabel.classList.remove("off");
     yellowBurgerMenu.classList.remove("green");
     greenBurgerMenuContent.classList.remove("yellow");
+    playSwitch.classList.remove("play");
     for (let i = 0; i < yellowMainCard.length; i++) {
       yellowMainCard[i].classList.remove("green");
     }
@@ -165,6 +173,19 @@ switchContainer.onclick = () => {
       yellowSectionCardContainer[i].classList.remove("green");
     }
   }
+};
+
+// Main:
+const playSwitchContainer = document.createElement("div");
+playSwitchContainer.className = "play_switch-container";
+const playSwitchLabel = document.createElement("div");
+playSwitchLabel.className = "play_switch-label";
+
+playSwitchLabel.onmouseenter = () => {
+  playSwitchLabel.classList.add("hover");
+};
+playSwitchLabel.onmouseleave = () => {
+  playSwitchLabel.classList.remove("hover");
 };
 
 // Cards in main:
@@ -175,13 +196,12 @@ cardsContainer.className = "cards-container";
 // Render Section Page:
 
 const renderSectionPage = (section) => {
+  isItMainPage = !isItMainPage;
   const oldCard = document.querySelectorAll(".main-card");
   const oldSectionCard = document.querySelectorAll(".section-card_container");
-
-  const playSwitchContainer = document.createElement("div");
-  playSwitchContainer.className = "play_switch-container";
-  const playSwitchLabel = document.createElement("div");
-  playSwitchLabel.className = "play_switch-label";
+  if (isItPlay) {
+    playSwitchContainer.classList.add("play");
+  }
 
   for (let i = 0; i < oldCard.length; i++) {
     oldCard[i].remove();
@@ -322,6 +342,9 @@ const renderSectionPage = (section) => {
     sectionCardBack.append(SectionDescBack);
 
     sectionCardContainer.append(cardSectionAudio);
+
+    main.append(playSwitchContainer);
+    playSwitchContainer.append(playSwitchLabel);
   }
 };
 
@@ -350,11 +373,17 @@ const renderMainPage = () => {
     cardsContainer.append(mainCard);
     mainCard.append(cardMainImg);
     mainCard.append(cardMainDesc);
+
+    main.append(playSwitchContainer);
+    playSwitchContainer.append(playSwitchLabel);
   }
 };
 
 const renderMainPageBack = () => {
+  isItMainPage = true;
   const oldSectionCard = document.querySelectorAll(".section-card_container");
+
+  playSwitchContainer.classList.remove("play");
 
   for (let i = 0; i < oldSectionCard.length; i++) {
     oldSectionCard[i].remove();
@@ -383,6 +412,9 @@ const renderMainPageBack = () => {
     cardsContainer.append(mainCard);
     mainCard.append(cardMainImg);
     mainCard.append(cardMainDesc);
+
+    main.append(playSwitchContainer);
+    playSwitchContainer.append(playSwitchLabel);
   }
 };
 
