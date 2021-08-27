@@ -61,6 +61,8 @@ switchContainer.append(switchLabel);
 
 let isItMainPage = true;
 
+
+
 const contentItems = [
   "Main Page",
   "Action (set A)",
@@ -107,6 +109,8 @@ for (let i = 0; i < contentItems.length; i++) {
   link.onclick = () => {
     activeLink = link.textContent;
     makeActiveLink();
+    const startSwitchLabel = document.querySelector(".play_switch-label");
+    startSwitchLabel.classList.remove("start");
 
     if (link.textContent === contentItems[0]) {
       renderMainPageBack();
@@ -145,6 +149,7 @@ switchContainer.onclick = () => {
   const greenBurgerMenuContent = document.querySelector(".burger-menu_content");
 
   const playSwitch = document.querySelector(".play_switch-container");
+  const startSwitchLabel = document.querySelector(".play_switch-label");
 
   if (isItPlay) {
     switchLabel.classList.add("off");
@@ -166,6 +171,7 @@ switchContainer.onclick = () => {
     yellowBurgerMenu.classList.remove("green");
     greenBurgerMenuContent.classList.remove("yellow");
     playSwitch.classList.remove("play");
+    startSwitchLabel.classList.remove("start");
     for (let i = 0; i < yellowMainCard.length; i++) {
       yellowMainCard[i].classList.remove("green");
     }
@@ -186,6 +192,10 @@ playSwitchLabel.onmouseenter = () => {
 };
 playSwitchLabel.onmouseleave = () => {
   playSwitchLabel.classList.remove("hover");
+};
+
+playSwitchLabel.onclick = () => {
+  playSwitchLabel.classList.add("start");
 };
 
 // Cards in main:

@@ -405,7 +405,12 @@ body.lock {
 
 .play_switch-label.hover {
   cursor: pointer;
-  box-shadow: 0 2px 5px 0 black;
+  box-shadow: 0 0 2px 2px black;
+}
+
+.play_switch-label.start {
+  width: 60px;
+  border-radius: 50px;
 }
 
 .play_switch-label::before {
@@ -419,13 +424,17 @@ body.lock {
   z-index: 1;
 }
 
+.play_switch-label.start::before {
+  content: none;
+}
+
 .play_switch-label::after {
   content: "";
   width: 50px;
   height: 50px;
   border-radius: 25px;
   background: #fff;
-  /* background-image: url("../../pablic/img/rotate.png"); */
+  background-image: url("../../pablic/img/rotate.png");
   top: 4px;
   left: 150px;
   transition-duration: 300ms;
@@ -435,6 +444,15 @@ body.lock {
 
 .play_switch-label.hover::after {
   left: 165px;
+}
+
+.play_switch-label.start::after {
+  top: 5px;
+  left: 5px;
+}
+
+.play_switch-label.hover.start::after {
+  left: 5px;
 }
 
 .footer {
