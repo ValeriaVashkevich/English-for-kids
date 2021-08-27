@@ -21,7 +21,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
-        { from:  path.resolve(__dirname, 'pablic'),},
+        { from:  path.resolve(__dirname, 'public'),},
       ],
     }),
   ],

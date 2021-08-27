@@ -434,7 +434,7 @@ body.lock {
   height: 50px;
   border-radius: 25px;
   background: #fff;
-  background-image: url("../../pablic/img/rotate.png");
+  background-image: url("../../public/img/rotate.png");
   top: 4px;
   left: 150px;
   transition-duration: 300ms;
