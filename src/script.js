@@ -61,8 +61,6 @@ switchContainer.append(switchLabel);
 
 let isItMainPage = true;
 
-
-
 const contentItems = [
   "Main Page",
   "Action (set A)",
@@ -111,11 +109,14 @@ for (let i = 0; i < contentItems.length; i++) {
     makeActiveLink();
     const startSwitchLabel = document.querySelector(".play_switch-label");
     startSwitchLabel.classList.remove("start");
+    const backPlaySwitchCircle = document.querySelector(".play_switch-circle");
+    backPlaySwitchCircle.style.backgroundImage = "url(img/arrow.png)";
 
     if (link.textContent === contentItems[0]) {
       renderMainPageBack();
     }
     if (link.textContent !== contentItems[0]) {
+      isItMainPage = !isItMainPage;
       renderSectionPage(contentItems[i]);
     }
 
@@ -140,6 +141,7 @@ let isItPlay = false;
 
 switchContainer.onclick = () => {
   isItPlay = !isItPlay;
+  playSwitchCircle.style.backgroundImage = "url(img/arrow.png)";
 
   const yellowMainCard = document.querySelectorAll(".main-card");
   const yellowSectionCardContainer = document.querySelectorAll(
@@ -182,10 +184,25 @@ switchContainer.onclick = () => {
 };
 
 // Main:
+// Global audio:
+const globalAudio = document.createElement("audio");
+globalAudio.className = "global-audio";
+main.append(globalAudio);
+
+// Play Switch:
+
 const playSwitchContainer = document.createElement("div");
 playSwitchContainer.className = "play_switch-container";
 const playSwitchLabel = document.createElement("div");
 playSwitchLabel.className = "play_switch-label";
+const playSwitchWord = document.createElement("div");
+playSwitchWord.className = "play_switch-word";
+playSwitchWord.textContent = "START";
+const playSwitchCircle = document.createElement("div");
+playSwitchCircle.className = "play_switch-circle";
+playSwitchCircle.style.backgroundImage = "url(img/arrow.png)";
+playSwitchLabel.append(playSwitchWord);
+playSwitchLabel.append(playSwitchCircle);
 
 playSwitchLabel.onmouseenter = () => {
   playSwitchLabel.classList.add("hover");
@@ -195,7 +212,21 @@ playSwitchLabel.onmouseleave = () => {
 };
 
 playSwitchLabel.onclick = () => {
+  playSwitchCircle.style.backgroundImage = "url(img/repeat.png)";
   playSwitchLabel.classList.add("start");
+
+  const audioList = cards.find((el) => el.section === activeLink).content;
+  // const chooseCard = document.querySelectorAll(".section-card_front")
+  let audioIndex = 0;
+  for (let i = 0; i < audioList.length; i++) {
+    const playWord = audioList[audioIndex].audioSrc;
+    globalAudio.src = playWord;
+    globalAudio.play();
+    console.log(chooseCard);
+    // if (audioList.word === ) {
+    //   audioIndex += 1;
+    // }
+  }
 };
 
 // Cards in main:
@@ -227,21 +258,21 @@ const renderSectionPage = (section) => {
 
     const sectionCardFront = document.createElement("div");
     sectionCardFront.className = "section-card_front";
-    const SectionImgFront = document.createElement("div");
-    SectionImgFront.className = "section_front-img";
-    SectionImgFront.style.backgroundImage = `url(${sectionContent[i].image})`;
-    const SectionDescFront = document.createElement("div");
-    SectionDescFront.className = "section_front-description";
-    SectionDescFront.textContent = sectionContent[i].word;
+    const sectionImgFront = document.createElement("div");
+    sectionImgFront.className = "section_front-img";
+    sectionImgFront.style.backgroundImage = `url(${sectionContent[i].image})`;
+    const sectionDescFront = document.createElement("div");
+    sectionDescFront.className = "section_front-description";
+    sectionDescFront.textContent = sectionContent[i].word;
 
     const sectionCardBack = document.createElement("div");
     sectionCardBack.className = "section-card_back";
-    const SectionImgBack = document.createElement("div");
-    SectionImgBack.className = "section_front-img";
-    SectionImgBack.style.backgroundImage = `url(${sectionContent[i].image})`;
-    const SectionDescBack = document.createElement("div");
-    SectionDescBack.className = "section_front-description";
-    SectionDescBack.textContent = sectionContent[i].translation;
+    const sectionImgBack = document.createElement("div");
+    sectionImgBack.className = "section_front-img";
+    sectionImgBack.style.backgroundImage = `url(${sectionContent[i].image})`;
+    const sectionDescBack = document.createElement("div");
+    sectionDescBack.className = "section_front-description";
+    sectionDescBack.textContent = sectionContent[i].translation;
 
     const rotate = document.createElement("div");
     rotate.className = "rotate";
@@ -260,11 +291,15 @@ const renderSectionPage = (section) => {
     const cardSectionAudio = document.createElement("audio");
     cardSectionAudio.src = sectionContent[i].audioSrc;
 
-    SectionImgFront.onclick = () => {
-      cardSectionAudio.play();
+    sectionImgFront.onclick = () => {
+      if (!isItPlay) {
+        cardSectionAudio.play();
+      }
     };
-    SectionDescFront.onclick = () => {
-      cardSectionAudio.play();
+    sectionDescFront.onclick = () => {
+      if (!isItPlay) {
+        cardSectionAudio.play();
+      }
     };
 
     cardsContainer.append(sectionCardContainer);
@@ -272,12 +307,12 @@ const renderSectionPage = (section) => {
     sectionCardContainer.append(sectionCardFront);
     sectionCardContainer.append(sectionCardBack);
 
-    sectionCardFront.append(SectionImgFront);
-    sectionCardFront.append(SectionDescFront);
+    sectionCardFront.append(sectionImgFront);
+    sectionCardFront.append(sectionDescFront);
     sectionCardFront.append(rotate);
 
-    sectionCardBack.append(SectionImgBack);
-    sectionCardBack.append(SectionDescBack);
+    sectionCardBack.append(sectionImgBack);
+    sectionCardBack.append(sectionDescBack);
 
     sectionCardContainer.append(cardSectionAudio);
 
@@ -299,21 +334,21 @@ const renderSectionPage = (section) => {
 
     const sectionCardFront = document.createElement("div");
     sectionCardFront.className = "section-card_front";
-    const SectionImgFront = document.createElement("div");
-    SectionImgFront.className = "section_front-img";
-    SectionImgFront.style.backgroundImage = `url(${sectionContent[i].image})`;
+    const sectionImgFront = document.createElement("div");
+    sectionImgFront.className = "section_front-img";
+    sectionImgFront.style.backgroundImage = `url(${sectionContent[i].image})`;
     const SectionDescFront = document.createElement("div");
     SectionDescFront.className = "section_front-description";
     SectionDescFront.textContent = sectionContent[i].word;
 
     const sectionCardBack = document.createElement("div");
     sectionCardBack.className = "section-card_back";
-    const SectionImgBack = document.createElement("div");
-    SectionImgBack.className = "section_front-img";
-    SectionImgBack.style.backgroundImage = `url(${sectionContent[i].image})`;
-    const SectionDescBack = document.createElement("div");
-    SectionDescBack.className = "section_front-description";
-    SectionDescBack.textContent = sectionContent[i].translation;
+    const sectionImgBack = document.createElement("div");
+    sectionImgBack.className = "section_front-img";
+    sectionImgBack.style.backgroundImage = `url(${sectionContent[i].image})`;
+    const sectionDescBack = document.createElement("div");
+    sectionDescBack.className = "section_front-description";
+    sectionDescBack.textContent = sectionContent[i].translation;
 
     const rotate = document.createElement("div");
     rotate.className = "rotate";
@@ -332,11 +367,15 @@ const renderSectionPage = (section) => {
     const cardSectionAudio = document.createElement("audio");
     cardSectionAudio.src = sectionContent[i].audioSrc;
 
-    SectionImgFront.onclick = () => {
-      cardSectionAudio.play();
+    sectionImgFront.onclick = () => {
+      if (!isItPlay) {
+        cardSectionAudio.play();
+      }
     };
     SectionDescFront.onclick = () => {
-      cardSectionAudio.play();
+      if (!isItPlay) {
+        cardSectionAudio.play();
+      }
     };
 
     cardsContainer.append(sectionCardContainer);
@@ -344,12 +383,12 @@ const renderSectionPage = (section) => {
     sectionCardContainer.append(sectionCardFront);
     sectionCardContainer.append(sectionCardBack);
 
-    sectionCardFront.append(SectionImgFront);
+    sectionCardFront.append(sectionImgFront);
     sectionCardFront.append(SectionDescFront);
     sectionCardFront.append(rotate);
 
-    sectionCardBack.append(SectionImgBack);
-    sectionCardBack.append(SectionDescBack);
+    sectionCardBack.append(sectionImgBack);
+    sectionCardBack.append(sectionDescBack);
 
     sectionCardContainer.append(cardSectionAudio);
 

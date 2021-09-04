@@ -413,8 +413,7 @@ body.lock {
   border-radius: 50px;
 }
 
-.play_switch-label::before {
-  content: "START";
+.play_switch-word {
   font-size: 35px;
   color: yellow;
   top: 10px;
@@ -424,17 +423,17 @@ body.lock {
   z-index: 1;
 }
 
-.play_switch-label.start::before {
-  content: none;
+.play_switch-label.start .play_switch-word {
+  font-size: 0px;
 }
 
-.play_switch-label::after {
-  content: "";
+.play_switch-circle {
   width: 50px;
   height: 50px;
   border-radius: 25px;
   background: #fff;
-  background-image: url("../../public/img/rotate.png");
+  background-repeat: no-repeat;
+  background-position: center;
   top: 4px;
   left: 150px;
   transition-duration: 300ms;
@@ -442,16 +441,16 @@ body.lock {
   z-index: 1;
 }
 
-.play_switch-label.hover::after {
+.play_switch-label.hover .play_switch-circle {
   left: 165px;
 }
 
-.play_switch-label.start::after {
+.play_switch-label.start .play_switch-circle  {
   top: 5px;
   left: 5px;
 }
 
-.play_switch-label.hover.start::after {
+.play_switch-label.hover.start .play_switch-circle  {
   left: 5px;
 }
 
